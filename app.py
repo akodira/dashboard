@@ -2,7 +2,7 @@ import streamlit as st
 from datetime import datetime
 
 st.set_page_config(
-    page_title="Cafe & Restaurant Order System",
+    page_title="Toast & Roast — Order System",
     page_icon="🍽️",
     layout="wide",
 )
@@ -180,7 +180,7 @@ def compute_bill(table, vat_pct, service_pct):
 # ── Header ────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="main-header">
-    <h1>🍽️ Cafe & Restaurant Order System</h1>
+    <h1>🍽️ Toast & Roast</h1>
     <p>Manage table orders with ease</p>
 </div>
 """, unsafe_allow_html=True)
@@ -303,7 +303,7 @@ with right_col:
             now = datetime.now().strftime("%Y-%m-%d  %H:%M")
             receipt_lines = [
                 "=" * 38,
-                "     CAFE & RESTAURANT",
+                "       TOAST & ROAST",
                 "=" * 38,
                 f"  Table No: {table}",
                 f"  Date:     {now}",
@@ -326,7 +326,7 @@ with right_col:
                 "=" * 38,
                 f"  {'TOTAL':<26} ${total:>7.2f}",
                 "=" * 38,
-                "     Thank you for dining with us!",
+                "  Thank you for dining at Toast & Roast!",
                 "=" * 38,
             ]
             st.code("\n".join(receipt_lines), language=None)
