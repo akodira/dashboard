@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
+import { useApp } from '../context/AppContext'
 
-export default function Header() {
-  const [time, setTime] = useState(new Date())
+export default function Header({ currentUser, onLogout, onGoToAdmin }) {
+  const [time, setTime]  = useState(new Date())
+  const { settings }     = useApp()
 
   useEffect(() => {
     const id = setInterval(() => setTime(new Date()), 1000)
@@ -10,16 +12,28 @@ export default function Header() {
 
   const fmt = time.toLocaleString('en-GB', {
     weekday: 'short', day: '2-digit', month: 'short',
-    year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit',
+    hour: '2-digit', minute: '2-digit', second: '2-digit',
   })
 
   return (
     <header className="header">
-      <div>
-        <h1>🍽️ Toast &amp; Roast</h1>
-        <p>Waiter Order Management System</p>
+      <div className="header-left">
+        {settings.logo
+          ? <img src={settings.logo} alt="" className="header-logo" />
+          : <span>🍽️</span>
+        }
+        <div>
+          <h1>{settings.cafeName}</h1>
+          <p>Waiter: <strong>{currentUser?.name}</strong></p>
+        </div>
       </div>
-      <span className="header-time">{fmt}</span>
+      <div className="header-right">
+        <span className="header-time">{fmt}</span>
+        {onGoToAdmin && (
+          <button className="header-btn" onClick={onGoToAdmin}>⚙️ Admin</button>
+        )}
+        <button className="header-btn danger" onClick={onLogout}>⏏ Sign Out</button>
+      </div>
     </header>
   )
 }
